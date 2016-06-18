@@ -74,8 +74,21 @@ object ProfBot extends App {
   }
 
   def vk_req(req: String): String = {
-    Thread.sleep(500)
-    Source.fromURL(req).mkString
+    var success:Boolean = true
+    var resp: String = ""
+    while(success) {
+      Thread.sleep(500)
+      try {
+        resp = Source.fromURL(req).mkString
+        success = false
+        resp
+      } catch {
+        case _: Exception =>
+          println("Weard error")
+          success = true
+      }
+    }
+    resp
   }
 
 }
